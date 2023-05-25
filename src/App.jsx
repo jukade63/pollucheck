@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useCallback, useEffect, useState } from "react";
 import Search from "./components/Search";
 import toast, { Toaster } from "react-hot-toast";
 import Display from "./components/Display";
@@ -12,6 +12,10 @@ function App() {
   const handleCLickSearch = (e) => {
     e.preventDefault();
     fetchApi();
+  };
+
+  const onInputChange = (e) => {
+    setSearch(e.target.value);
   };
 
   const fetchApi = async () => {
@@ -35,9 +39,9 @@ function App() {
   }, []);
 
   return (
-    <div className="App">
+    <div className="bg-slate-100 pt-5">
       <Toaster />
-      <Search setSearch={setSearch} handleSearch={handleCLickSearch} />
+      <Search onInputChange={onInputChange} handleSearch={handleCLickSearch} />
       {aqiData.forecast && <Display aqiData={aqiData} />}
     </div>
   );
